@@ -34,7 +34,7 @@ RUN set -x \
         --delete               "Server/Service/Engine/Host/Context/@debug" \
                                "${CONF_INSTALL}/conf/server.xml" \
     && touch -d "@0"           "${CONF_INSTALL}/conf/server.xml" \
-    && sed -ri 's#-Xms1024m -Xmx1024m ##' $CONF_INSTALL/bin/setenv.sh
+    && sed -ri 's#-Xms1024m -Xmx1024m ##' $CONF_INSTALL/bin/setenv.sh \
     && chown daemon:daemon     "${JAVA_CACERTS}" \
     && cd ${CONF_INSTALL}/confluence/WEB-INF/lib/ \
     && chmod a+x /usr/local/bin/atlassianctl \
