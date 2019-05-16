@@ -6,7 +6,7 @@ ENV CONF_HOME=/var/atlassian/confluence \
     JAVA_CACERTS=$JAVA_HOME/jre/lib/security/cacerts \
     CERTIFICATE=$CONF_HOME/certificate \
     MYSQL_connector=5.1.47 \
-    CONF_VERSION=6.14.1 JAVA_OPTS='-Duser.timezone=GMT+08'
+    CONF_VERSION=6.14.5 JAVA_OPTS='-Duser.timezone=GMT+08'
 
 # Install Atlassian Confluence and helper tools and setup initial home
 # directory structure.
@@ -34,6 +34,7 @@ RUN set -x \
         --delete               "Server/Service/Engine/Host/Context/@debug" \
                                "${CONF_INSTALL}/conf/server.xml" \
     && touch -d "@0"           "${CONF_INSTALL}/conf/server.xml" \
+    && sed -ri 's#-Xms1024m -Xmx1024m ##' $CONF_INSTALL/bin/setenv.sh
     && chown daemon:daemon     "${JAVA_CACERTS}" \
     && cd ${CONF_INSTALL}/confluence/WEB-INF/lib/ \
     && chmod a+x /usr/local/bin/atlassianctl \
